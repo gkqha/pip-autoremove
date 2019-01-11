@@ -1,3 +1,6 @@
+pip-autoremove with pip3
+
+
 pip-autoremove
 ==============
 

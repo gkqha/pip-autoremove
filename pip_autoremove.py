@@ -14,7 +14,7 @@ except NameError:
     raw_input = input
 
 
-WHITELIST = ['pip', 'setuptools']
+WHITELIST = ['pip3', 'setuptools']
 
 
 def autoremove(names, yes=False):
@@ -80,7 +80,7 @@ def show_dist(dist):
 
 
 def remove_dist(dist):
-    subprocess.check_call(["pip", "uninstall", "-y", dist.project_name])
+    subprocess.check_call(["pip3", "uninstall", "-y", dist.project_name])
 
 
 def get_graph():
