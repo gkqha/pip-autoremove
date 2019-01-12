@@ -6,7 +6,7 @@ import subprocess
 from pkg_resources import working_set, get_distribution
 
 
-__version__ = '0.9.1'
+__version__ = "0.9.1"
 
 try:
     raw_input
@@ -14,7 +14,7 @@ except NameError:
     raw_input = input
 
 
-WHITELIST = ['pip3', 'setuptools']
+WHITELIST = ["pip3", "setuptools", "pip"]
 
 
 def autoremove(names, yes=False):
@@ -43,7 +43,7 @@ def show_tree(dist, dead, indent=0, visited=None):
     if dist in visited:
         return
     visited.add(dist)
-    print(' ' * 4 * indent, end='')
+    print(" " * 4 * indent, end="")
     show_dist(dist)
     for req in requires(dist):
         if req in dead:
@@ -55,7 +55,6 @@ def find_all_dead(graph, start):
 
 
 def find_dead(graph, dead):
-
     def is_killed_by_us(node):
         succ = graph[node]
         return succ and not (succ - dead)
@@ -72,11 +71,11 @@ def fixed_point(f, x):
 
 
 def confirm(prompt):
-    return raw_input(prompt) == 'y'
+    return raw_input(prompt) == "y"
 
 
 def show_dist(dist):
-    print('%s %s (%s)' % (dist.project_name, dist.version, dist.location))
+    print("%s %s (%s)" % (dist.project_name, dist.version, dist.location))
 
 
 def remove_dist(dist):
@@ -107,7 +106,6 @@ def main(argv=None):
 
 
 def get_leaves(graph):
-
     def is_leaf(node):
         return not graph[node]
 
@@ -122,20 +120,31 @@ def list_leaves():
 
 def create_parser():
     parser = optparse.OptionParser(
-        usage='usage: %prog [OPTION]... [NAME]...',
-        version='%prog ' + __version__,
+        usage="usage: %prog [OPTION]... [NAME]...", version="%prog " + __version__
     )
     parser.add_option(
-        '-l', '--list', action='store_true', default=False,
-        help="list unused dependencies, but don't uninstall them.")
+        "-l",
+        "--list",
+        action="store_true",
+        default=False,
+        help="list unused dependencies, but don't uninstall them.",
+    )
     parser.add_option(
-        '-L', '--leaves', action='store_true', default=False,
-        help="list leaves (packages which are not used by any others).")
+        "-L",
+        "--leaves",
+        action="store_true",
+        default=False,
+        help="list leaves (packages which are not used by any others).",
+    )
     parser.add_option(
-        '-y', '--yes', action='store_true', default=False,
-        help="don't ask for confirmation of uninstall deletions.")
+        "-y",
+        "--yes",
+        action="store_true",
+        default=False,
+        help="don't ask for confirmation of uninstall deletions.",
+    )
     return parser
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
