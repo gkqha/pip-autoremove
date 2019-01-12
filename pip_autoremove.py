@@ -79,7 +79,11 @@ def show_dist(dist):
 
 
 def remove_dist(dist):
-    subprocess.check_call(["pip3", "uninstall", "-y", dist.project_name])
+    try:
+        subprocess.check_call(["pip", "uninstall", "-y", dist.project_name])
+    except:
+        subprocess.check_call(["pip3", "uninstall", "-y", dist.project_name])
+
 
 
 def get_graph():
